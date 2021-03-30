@@ -2,6 +2,7 @@ const gridContainer = document.getElementById('grid');
 const clearBtn = document.querySelector('.clear');
 const blackColor = document.querySelector('.blackColor');
 const randomColor = document.querySelector('.randomColor');
+const eraser = document.querySelector('.eraser');
 const defaultValue = 16;
 let NumSquares = defaultValue;
 let reseted = false;
@@ -23,15 +24,20 @@ clearBtn.addEventListener('click', () => {
 });
 
 blackColor.addEventListener('click', () => {
-	console.log(blackColor.classList.contains('current'));
 	blackColor.classList.add('current');
 	randomColor.classList.remove('current');
+	eraser.classList.remove('current');
 });
 
 randomColor.addEventListener('click', () => {
-	console.log(randomColor.classList.contains('current'));
 	randomColor.classList.add('current');
 	blackColor.classList.remove('current');
+	eraser.classList.remove('current');
+});
+eraser.addEventListener('click', () => {
+	eraser.classList.add('current');
+	blackColor.classList.remove('current');
+	randomColor.classList.remove('current');
 });
 const divCreator = () => {
 	gridContainer.style['grid-template-columns'] = `repeat(${NumSquares},1fr)`;
@@ -60,8 +66,9 @@ const getColor = () => {
 	let color = getRandomColor();
 	if (blackColor.classList.contains('current')) {
 		color = '#000';
+	} else if (eraser.classList.contains('current')) {
+		color = '#f4f4f4';
 	}
-
 	return color;
 };
 const getRandomColor = () => {
